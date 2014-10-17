@@ -52,5 +52,9 @@ describe WirecardCheckoutPage::RequestChecksum do
        "requestFingerprintOrder" => checksum.fingerprint_keys * ',',
        "requestFingerprint"      => "10feda94a5db9f3e2fc7439d3c4c228b"
     )
+    expect(checksum.request_url).to be_a URI
+    expect(checksum.request_url.to_s).to be_start_with(
+      'https://checkout.wirecard.com/page/init.php?amount=6.66'
+    )
   end
 end

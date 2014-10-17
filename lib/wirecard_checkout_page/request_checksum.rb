@@ -21,6 +21,7 @@ module WirecardCheckoutPage
 
     def initialize(values = {})
       @values = stringify_keys(values)
+      @init_url = @values.delete('init_url') || WirecardCheckoutPage::DEFAULT_INIT_URL
       @fingerprint_keys = @values.delete('fingerprint_keys') || FINGERPRINT_KEYS
       @secret = @values.delete('secret') or
         raise WirecardCheckoutPage::ValueMissing, "secret is missing"
@@ -50,6 +51,12 @@ module WirecardCheckoutPage
       parameters
     end
 
+    def request_url
+      url = URI.parse(@init_url)
+      url.query = request_parameters.to_param
+      url
+    end
+
     private
 
     def requestFingerprintSeed(values)
@@ -63,12 +70,13 @@ module WirecardCheckoutPage
     end
 
     def add_some_defaults(values)
-      common_tokens = {
+      default_tokens = {
         'paymentType'             => 'SELECT',
         'currency'                => 'EUR',
         'language'                => 'de',
+
       }
-      values.update(common_tokens) do |key,old,new|
+      values.update(default_tokens) do |key,old,new|
         old.nil? ? new : old
       end
     end

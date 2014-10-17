@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.description = "This library allows you to use the Wirecard Checkout Page service."
   s.email = "flori@ping.de"
   s.extra_rdoc_files = ["README.md", "lib/wirecard_checkout_page.rb", "lib/wirecard_checkout_page/checksum_creation_failed.rb", "lib/wirecard_checkout_page/checksum_verification_failed.rb", "lib/wirecard_checkout_page/errors.rb", "lib/wirecard_checkout_page/request_checksum.rb", "lib/wirecard_checkout_page/response_checksum.rb", "lib/wirecard_checkout_page/utils.rb", "lib/wirecard_checkout_page/value_missing.rb", "lib/wirecard_checkout_page/version.rb", "lib/wirecard_checkout_page/wirecard_checkout_page_error.rb"]
-  s.files = [".gitignore", ".rspec", "Gemfile", "README.md", "Rakefile", "VERSION", "lib/wirecard_checkout_page.rb", "lib/wirecard_checkout_page/checksum_creation_failed.rb", "lib/wirecard_checkout_page/checksum_verification_failed.rb", "lib/wirecard_checkout_page/errors.rb", "lib/wirecard_checkout_page/request_checksum.rb", "lib/wirecard_checkout_page/response_checksum.rb", "lib/wirecard_checkout_page/utils.rb", "lib/wirecard_checkout_page/value_missing.rb", "lib/wirecard_checkout_page/version.rb", "lib/wirecard_checkout_page/wirecard_checkout_page_error.rb", "spec/request_checksum_spec.rb", "spec/response_checksum_spec.rb", "spec/spec_helper.rb", "wirecard_checkout_page.gemspec"]
+  s.files = [".gitignore", ".rspec", ".travis.yml", "Gemfile", "README.md", "Rakefile", "VERSION", "lib/wirecard_checkout_page.rb", "lib/wirecard_checkout_page/checksum_creation_failed.rb", "lib/wirecard_checkout_page/checksum_verification_failed.rb", "lib/wirecard_checkout_page/errors.rb", "lib/wirecard_checkout_page/request_checksum.rb", "lib/wirecard_checkout_page/response_checksum.rb", "lib/wirecard_checkout_page/utils.rb", "lib/wirecard_checkout_page/value_missing.rb", "lib/wirecard_checkout_page/version.rb", "lib/wirecard_checkout_page/wirecard_checkout_page_error.rb", "spec/request_checksum_spec.rb", "spec/response_checksum_spec.rb", "spec/spec_helper.rb", "wirecard_checkout_page.gemspec"]
   s.homepage = "http://flori.github.com/wirecard_checkout_page"
   s.licenses = ["Apache-2.0"]
   s.rdoc_options = ["--title", "WirecardCheckoutPage -- Wirecard Checkout Page implementation", "--main", "README.md"]
@@ -27,16 +27,19 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rake>, [">= 0"])
       s.add_development_dependency(%q<simplecov>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
+      s.add_development_dependency(%q<activesupport>, [">= 0"])
     else
       s.add_dependency(%q<gem_hadar>, ["~> 1.0.0"])
       s.add_dependency(%q<rake>, [">= 0"])
       s.add_dependency(%q<simplecov>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 0"])
+      s.add_dependency(%q<activesupport>, [">= 0"])
     end
   else
     s.add_dependency(%q<gem_hadar>, ["~> 1.0.0"])
     s.add_dependency(%q<rake>, [">= 0"])
     s.add_dependency(%q<simplecov>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 0"])
+    s.add_dependency(%q<activesupport>, [">= 0"])
   end
 end
