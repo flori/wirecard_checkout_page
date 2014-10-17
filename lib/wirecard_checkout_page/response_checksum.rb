@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module WirecardCheckoutPage
   class ResponseChecksum
     include WirecardCheckoutPage::Utils
