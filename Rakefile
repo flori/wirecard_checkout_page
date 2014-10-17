@@ -15,10 +15,10 @@ GemHadar do
   title       "#{name.camelize} -- Wirecard Checkout Page implementation"
   licenses    << 'Apache-2.0'
 
+  dependency             'typhoeus'
   development_dependency 'rake'
   development_dependency 'simplecov'
   development_dependency 'rspec'
-  development_dependency 'activesupport'
 end
 
 task :default => :spec

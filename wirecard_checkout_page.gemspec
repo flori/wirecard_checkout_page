@@ -27,19 +27,19 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rake>, [">= 0"])
       s.add_development_dependency(%q<simplecov>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
-      s.add_development_dependency(%q<activesupport>, [">= 0"])
+      s.add_runtime_dependency(%q<typhoeus>, [">= 0"])
     else
       s.add_dependency(%q<gem_hadar>, ["~> 1.0.0"])
       s.add_dependency(%q<rake>, [">= 0"])
       s.add_dependency(%q<simplecov>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 0"])
-      s.add_dependency(%q<activesupport>, [">= 0"])
+      s.add_dependency(%q<typhoeus>, [">= 0"])
     end
   else
     s.add_dependency(%q<gem_hadar>, ["~> 1.0.0"])
     s.add_dependency(%q<rake>, [">= 0"])
     s.add_dependency(%q<simplecov>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 0"])
-    s.add_dependency(%q<activesupport>, [">= 0"])
+    s.add_dependency(%q<typhoeus>, [">= 0"])
   end
 end

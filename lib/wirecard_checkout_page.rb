@@ -1,6 +1,5 @@
 require 'digest/md5'
 require 'uri'
-require 'active_support/all'
 require 'wirecard_checkout_page/errors'
 require 'wirecard_checkout_page/utils'
 require 'wirecard_checkout_page/request_checksum'
@@ -13,7 +12,7 @@ module WirecardCheckoutPage
     ResponseChecksum.new(values).valid?
   end
 
-  def self.request_url(values)
-    RequestChecksum.new(values).request_url
+  def self.post_request(values)
+    RequestChecksum.new(values).post_request
   end
 end

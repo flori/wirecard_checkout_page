@@ -52,9 +52,12 @@ module WirecardCheckoutPage
     end
 
     def request_url
-      url = URI.parse(@init_url)
-      url.query = request_parameters.to_param
-      url
+      URI.parse(@init_url)
+    end
+
+    def post_request
+      response = Typhoeus.post request_url, body: request_parameters
+      response.headers['Location']
     end
 
     private
