@@ -6,3 +6,10 @@ if ENV['START_SIMPLECOV'].to_i == 1
 end
 require 'rspec'
 require 'wirecard_checkout_page'
+
+RSpec.configure do |config|
+  config.before(:all) do
+    response = Typhoeus::Response.new(code: 302, body: "", headers: { 'Location' => 'payment-url' })
+    Typhoeus.stub(/init/).and_return(response)
+  end
+end

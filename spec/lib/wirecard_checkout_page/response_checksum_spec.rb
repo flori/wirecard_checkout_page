@@ -49,7 +49,6 @@ describe WirecardCheckoutPage::ResponseChecksum do
     checksum.valid?
     expect(checksum.computed_fingerprint).to eq '8a1319b4a097d5a9157f479b11e8f5ae'
     expect(checksum).to be_valid
-    expect(WirecardCheckoutPage.response_valid?(response_params)).to eq true
   end
 
   it "fails check on an incorrect response" do
@@ -85,7 +84,6 @@ describe WirecardCheckoutPage::ResponseChecksum do
     }
     expect(WirecardCheckoutPage::ResponseChecksum.new(response_params)).
       to_not be_valid
-    expect(WirecardCheckoutPage.response_valid?(response_params)).to eq false
   end
 
   it "fails check on a response with missing keys" do
@@ -122,7 +120,6 @@ describe WirecardCheckoutPage::ResponseChecksum do
     expect(checksum).to_not be_valid
     expect(checksum).to be_missing_keys
     expect(checksum.missing_keys?).to eq %w[amount]
-    expect(WirecardCheckoutPage.response_valid?(response_params)).to eq false
   end
 
   it "fails check in an empty response" do

@@ -21,7 +21,6 @@ module WirecardCheckoutPage
 
     def initialize(values = {})
       @values = stringify_keys(values)
-      @init_url = @values.delete('init_url') || WirecardCheckoutPage::DEFAULT_INIT_URL
       @fingerprint_keys = @values.delete('fingerprint_keys') || FINGERPRINT_KEYS
       @secret = @values.delete('secret') or
         raise WirecardCheckoutPage::ValueMissing, "secret is missing"
@@ -51,15 +50,6 @@ module WirecardCheckoutPage
       parameters
     end
 
-    def request_url
-      URI.parse(@init_url)
-    end
-
-    def post_request
-      response = Typhoeus.post request_url, body: request_parameters
-      response.headers['Location']
-    end
-
     private
 
     def requestFingerprintSeed(values)
@@ -74,10 +64,9 @@ module WirecardCheckoutPage
 
     def add_some_defaults(values)
       default_tokens = {
-        'paymentType'             => 'SELECT',
-        'currency'                => 'EUR',
-        'language'                => 'de',
-
+        'paymentType' => 'SELECT',
+        'currency'    => 'EUR',
+        'language'    => 'de',
       }
       values.update(default_tokens) do |key,old,new|
         old.nil? ? new : old
