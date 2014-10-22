@@ -4,6 +4,17 @@ if ENV['START_SIMPLECOV'].to_i == 1
     add_filter "#{File.basename(File.dirname(__FILE__))}/"
   end
 end
+
+if ENV.key?('CODECLIMATE_REPO_TOKEN')
+  begin
+    require "codeclimate-test-reporter"
+  rescue LoadError => e
+    warn "Caught #{e.class}: #{e.message} loading codeclimate-test-reporter"
+  else
+    CodeClimate::TestReporter.start
+  end
+end
+
 require 'rspec'
 require 'byebug'
 require 'wirecard_checkout_page'
