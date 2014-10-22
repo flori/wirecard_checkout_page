@@ -35,3 +35,9 @@ puts response.success?
 puts response.params
 #=> { payment_url: 'http://example.com/redirect_your_user_to_here' }
 ```
+
+## Badges
+
+[![Code Climate](https://codeclimate.com/github/flori/wirecard_checkout_page/badges/gpa.svg)](https://codeclimate.com/github/flori/wirecard_checkout_page)
+
+[![Test Coverage](https://codeclimate.com/github/flori/wirecard_checkout_page/badges/coverage.svg)](https://codeclimate.com/github/flori/wirecard_checkout_page)
