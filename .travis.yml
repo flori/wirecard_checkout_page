@@ -2,9 +2,8 @@ rvm:
   - 2.0.0
   - 2.1
   - ruby-head
-  - rbx-20mode
-  - jruby-20mode
+  - jruby-head
 matrix:
   allow_failures:
     - rvm: ruby-head
-    - rvm: rbx-20mode
+    - rvm: jruby-head
