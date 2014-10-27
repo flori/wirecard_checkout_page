@@ -45,16 +45,18 @@ describe WirecardCheckoutPage::Gateway do
     end
   end
 
-  describe '#response_valid?' do
+  describe '#check_response' do
     it 'builds a checksum with the authorization params' do
       expect(WirecardCheckoutPage::ResponseChecksum).to receive(:new).
-        with(hash_including customerId: 'foo', secret: 'bar').and_call_original
-      gateway.response_valid?
+        with(
+          hash_including('customerId' => 'foo', 'secret' => 'bar')
+      ).and_call_original
+      gateway.check_response.valid?
     end
 
     it 'returns true if the response was valid' do
       allow_any_instance_of(WirecardCheckoutPage::ResponseChecksum).to receive(:valid?).and_return(true)
-      expect(gateway.response_valid?).to be true
+      expect(gateway.check_response).to be_valid
     end
   end
 end

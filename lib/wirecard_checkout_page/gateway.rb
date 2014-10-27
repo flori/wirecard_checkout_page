@@ -15,8 +15,10 @@ module WirecardCheckoutPage
       InitResponse.new Typhoeus.post(init_url, body: checksum.request_parameters)
     end
 
-    def response_valid?(params = {})
-      WirecardCheckoutPage::ResponseChecksum.new(params.merge(authentication_params)).valid?
+    def check_response(params = {})
+      WirecardCheckoutPage::CheckedResponse.new(
+        params.merge(authentication_params)
+      )
     end
 
     private
