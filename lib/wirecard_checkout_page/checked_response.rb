@@ -6,6 +6,8 @@ module WirecardCheckoutPage
       @params = stringify_keys(params).freeze
     end
 
+    attr_reader :params
+
     def valid?
       WirecardCheckoutPage::ResponseChecksum.new(@params).valid?
     end
@@ -17,7 +19,5 @@ module WirecardCheckoutPage
     def message
       @params['message']
     end
-
-    attr_reader :params
   end
 end
