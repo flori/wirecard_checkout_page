@@ -13,5 +13,11 @@ module WirecardCheckoutPage
     def success?
       valid? && @params['paymentState'] == 'SUCCESS'
     end
+
+    def message
+      @params['message']
+    end
+
+    attr_reader :params
   end
 end
