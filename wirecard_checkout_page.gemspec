@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
-# stub: wirecard_checkout_page 0.0.0 ruby lib
+# stub: wirecard_checkout_page 0.0.1 ruby lib
 
 Gem::Specification.new do |s|
   s.name = "wirecard_checkout_page"
-  s.version = "0.0.0"
+  s.version = "0.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
