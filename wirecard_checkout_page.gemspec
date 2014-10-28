@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["Florian Frank"]
-  s.date = "2014-10-27"
+  s.date = "2014-10-28"
   s.description = "This library allows you to use the Wirecard Checkout Page service."
   s.email = "flori@ping.de"
   s.extra_rdoc_files = ["README.md", "lib/wirecard_checkout_page.rb", "lib/wirecard_checkout_page/checked_response.rb", "lib/wirecard_checkout_page/errors.rb", "lib/wirecard_checkout_page/gateway.rb", "lib/wirecard_checkout_page/init_response.rb", "lib/wirecard_checkout_page/request_checksum.rb", "lib/wirecard_checkout_page/response_checksum.rb", "lib/wirecard_checkout_page/utils.rb", "lib/wirecard_checkout_page/value_handling.rb", "lib/wirecard_checkout_page/value_missing.rb", "lib/wirecard_checkout_page/version.rb", "lib/wirecard_checkout_page/wirecard_checkout_page_error.rb"]
@@ -27,14 +27,12 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rake>, [">= 0"])
       s.add_development_dependency(%q<simplecov>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
-      s.add_development_dependency(%q<byebug>, [">= 0"])
       s.add_runtime_dependency(%q<typhoeus>, [">= 0"])
     else
       s.add_dependency(%q<gem_hadar>, ["~> 1.0.0"])
       s.add_dependency(%q<rake>, [">= 0"])
       s.add_dependency(%q<simplecov>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 0"])
-      s.add_dependency(%q<byebug>, [">= 0"])
       s.add_dependency(%q<typhoeus>, [">= 0"])
     end
   else
@@ -42,7 +40,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<rake>, [">= 0"])
     s.add_dependency(%q<simplecov>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 0"])
-    s.add_dependency(%q<byebug>, [">= 0"])
     s.add_dependency(%q<typhoeus>, [">= 0"])
   end
 end
