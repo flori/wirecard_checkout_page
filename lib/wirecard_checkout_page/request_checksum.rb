@@ -29,7 +29,6 @@ module WirecardCheckoutPage
         raise WirecardCheckoutPage::ValueMissing, 'value "secret" is missing'
       @values = add_some_defaults @values
       @values.freeze
-      @fingerprint_keys = fingerprint_keys
       @secret = @secret
       reset_missing_keys
     end
