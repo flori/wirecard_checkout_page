@@ -5,7 +5,6 @@ describe WirecardCheckoutPage::Gateway do
     {
       customer_id:      'D200001',
       secret:           'B8AKTPWBRMNBV455FG6M2DANE99WU2',
-      toolkit_url:      'https://toolkit.com',
       toolkit_password: 'jcv45z',
     }
   end
@@ -55,26 +54,20 @@ describe WirecardCheckoutPage::Gateway do
   end
 
   describe '#recurring_process' do
-
     let(:valid_params) do
       {
-        sourceOrderNumber: 'sourceOrderNumber',
+        sourceOrderNumber: '123',
         orderDescription:  'orderDescription',
         amount:            '345',
         currency:          'EUR'
       }
     end
 
-    it 'makes a Toolkit::RecurPayment call' do
-      expect(WirecardCheckoutPage::Toolkit::RecurPayment).to receive(:new).
-        with(url: 'https://toolkit.com', params: hash_including(valid_params)).and_call_original
-      gateway.recurring_process(valid_params)
-    end
-
-    it 'returns a InitResponse with the correct payment url' do
+    it 'returns a successful ToolKit::Reponse' do
       response = gateway.recurring_process(valid_params)
       expect(response).to be_a WirecardCheckoutPage::Toolkit::Response
-      # expect(response.params).to eq(payment_url: 'payment-url')
+      byebug
+      expect(response).to be_success
     end
   end
 

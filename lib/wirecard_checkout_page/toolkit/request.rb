@@ -49,7 +49,7 @@ module WirecardCheckoutPage
         if missing_keys.any?
           raise WirecardCheckoutPage::ValueMissing, "values #{missing_keys * ', ' } are missing"
         end
-        WirecardCheckoutPage::Toolkit::Response.new Typhoeus.post(url, body: body, headers: headers)
+        WirecardCheckoutPage::Toolkit::Response.from_typhoeus_response Typhoeus.post(url, body: body, headers: headers)
       end
 
       def fingerprinted_request_params
