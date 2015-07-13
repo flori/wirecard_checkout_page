@@ -24,6 +24,27 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
     }
   end
 
+  describe '#call' do
+    context 'with missing params' do
+      it 'has missing_keys' do
+        expect(subject.missing_keys).to eq %w(customerId toolkitPassword secret sourceOrderNumber orderDescription amount currency)
+      end
+
+      it 'raises ValueMissing' do
+        expect { subject.call } .to raise_error WirecardCheckoutPage::ValueMissing
+      end
+    end
+
+    context 'with valid params' do
+      subject { described_class.new params: valid_params }
+
+      it 'has no missing_keys' do
+        expect(subject.missing_keys).to be_empty
+      end
+    end
+  end
+
+
   describe '#fingerprint_keys' do
     it 'has the right fingerprint_keys' do
       expect(subject.fingerprint_keys).to eq %w(customerId shopId toolkitPassword secret command language orderNumber sourceOrderNumber autoDeposit orderDescription amount currency orderReference customerStatement)
@@ -124,32 +145,6 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
             'orderReference'          => 'orderReference'
           }
         )
-    end
-  end
-
-
-
-  describe '#call' do
-    context 'with missing params' do
-      it 'has missing_keys' do
-        expect(subject.missing_keys).to eq %w(customerId toolkitPassword secret sourceOrderNumber orderDescription amount currency)
-      end
-
-      it 'raises ValueMissing' do
-        expect { subject.call } .to raise_error WirecardCheckoutPage::ValueMissing
-      end
-    end
-
-    context 'with valid params' do
-      subject { described_class.new params: valid_params }
-
-      it 'has no missing_keys' do
-        expect(subject.missing_keys).to be_empty
-      end
-
-      it 'makes the post request' do
-        subject.call
-      end
     end
   end
 

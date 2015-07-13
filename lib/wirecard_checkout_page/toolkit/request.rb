@@ -85,7 +85,6 @@ module WirecardCheckoutPage
       # parameters are not manipulated by a 3rd party. Therefore it is essential that only you and
       # Wirecard know your secret!
       def fingerprint
-
         values = required_fingerprint_keys.map do |key|
           if key == 'secret'
             @secret
@@ -95,7 +94,6 @@ module WirecardCheckoutPage
         end * ''
         Digest::MD5.hexdigest values
       end
-
 
       # Which request parameters are required for all operations?
       # To start an operation you have to set all required parameters to their corresponding values.

@@ -90,10 +90,11 @@ describe WirecardCheckoutPage::Toolkit::Request do
         expect(subject.missing_keys).to be_empty
       end
 
-      it 'wraps the response into a Toolkit::Response object'
-
+      it 'wraps the response in a toolkit a response object' do
+        response = subject.call
+        expect(response).to be_a WirecardCheckoutPage::Toolkit::Response
+      end
     end
-
   end
 
   describe '#fingerprint' do
