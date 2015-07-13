@@ -1,6 +1,7 @@
 module WirecardCheckoutPage
   module Toolkit
     class Response
+      attr_reader :original_response
 
       def initialize(response)
         @original_response = response

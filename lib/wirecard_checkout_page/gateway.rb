@@ -3,10 +3,10 @@ module WirecardCheckoutPage
     DEFAULT_INIT_URL    = 'https://checkout.wirecard.com/page/init.php'
     DEFAULT_TOOLKIT_URL = 'https://checkout.wirecard.com/page/toolkit.php'
 
-    attr_accessor :customerId, :secret, :init_url, :toolkit_url, :toolkit_password
+    attr_accessor :customer_id, :secret, :init_url, :toolkit_url, :toolkit_password
 
-    def initialize(customerId: nil, secret: nil, init_url: nil, toolkit_url: nil, toolkit_password: nil)
-      @customerId       = customerId
+    def initialize(customer_id: nil, secret: nil, init_url: nil, toolkit_url: nil, toolkit_password: nil)
+      @customer_id      = customer_id
       @secret           = secret
       @init_url         = init_url    || DEFAULT_INIT_URL
       @toolkit_url      = toolkit_url || DEFAULT_TOOLKIT_URL
@@ -40,7 +40,7 @@ module WirecardCheckoutPage
     end
 
     def authentication_params
-      { secret: secret, customerId: customerId }
+      { secret: secret, customerId: customer_id }
     end
 
     def credentials
