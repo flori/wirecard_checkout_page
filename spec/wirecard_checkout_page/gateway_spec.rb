@@ -66,7 +66,6 @@ describe WirecardCheckoutPage::Gateway do
     it 'returns a successful ToolKit::Reponse' do
       response = gateway.recurring_process(valid_params)
       expect(response).to be_a WirecardCheckoutPage::Toolkit::Response
-      byebug
       expect(response).to be_success
     end
   end
