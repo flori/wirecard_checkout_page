@@ -1,3 +1,5 @@
+# Official Wirecard Checkout Page Docs for Toolkit Requests:
+# https://integration.wirecard.at/doku.php/wcp:toolkit_light:start?s[]=toolkit
 module WirecardCheckoutPage
   module Toolkit
     class Request
@@ -59,9 +61,9 @@ module WirecardCheckoutPage
 
       # HTTP header parameter	Description
       # Host           Domain name of server. Has to be set to the following value: secure.wirecard-cee.com
-      # User-Agent     User agent string of client.
+      # User-Agent     User agent string of client. (Should be set by the HTTP-Client lib)
+      # Content-Length Length of body in bytes. (Should be set by HTTP-Client lib)
       # Content-Type   MIME type of the body. Has to be set to the following value: application/x-www-form-urlencoded
-      # Content-Length Length of body in bytes.
       # Connection     Type of connection. Has to be set to the following value: close
       def headers
         {
