@@ -17,14 +17,18 @@ module WirecardCheckoutPage
       end
 
       def error_code
-        parsed_body['errorCode'].last.to_s
+        param('errorCode').to_s
       end
 
       private
 
       # NOTE: May be useful for debugging? Expose later?
       def status
-        parsed_body['status'].last
+        param 'status'
+      end
+
+      def param(key)
+        parsed_body[key].last
       end
 
       def parsed_body
