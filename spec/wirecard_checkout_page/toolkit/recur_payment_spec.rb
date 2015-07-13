@@ -27,7 +27,8 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
   describe '#call' do
     context 'with missing params' do
       it 'has missing_keys' do
-        expect(subject.missing_keys).to eq %w(customerId toolkitPassword secret sourceOrderNumber orderDescription amount currency)
+        expected_keys = %w(customerId toolkitPassword secret sourceOrderNumber orderDescription amount currency)
+        expect(subject.missing_keys).to eq expected_keys
       end
 
       it 'raises ValueMissing' do
@@ -47,24 +48,36 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
 
   describe '#fingerprint_keys' do
     it 'has the right fingerprint_keys' do
-      expect(subject.fingerprint_keys).to eq %w(customerId shopId toolkitPassword secret command language orderNumber sourceOrderNumber autoDeposit orderDescription amount currency orderReference customerStatement)
+      expected_keys = %w(
+        customerId shopId toolkitPassword secret command language orderNumber sourceOrderNumber
+        autoDeposit orderDescription amount currency orderReference customerStatement
+      )
+      expect(subject.fingerprint_keys).to eq expected_keys
     end
   end
 
   describe '#required_finger_print_keys' do
     let(:params) { valid_params }
-    subject { described_class.new(params: params).required_fingerprint_keys }
+    subject { described_class.new(params: params) }
 
     context 'with basic params' do
       it 'has the right required_fingerprint_keys' do
-        expect(subject).to eq %w(customerId toolkitPassword secret command language sourceOrderNumber orderDescription amount currency)
+        expected_keys = %w(
+          customerId toolkitPassword secret command language sourceOrderNumber orderDescription amount currency
+        )
+        expect(subject.required_fingerprint_keys).to eq expected_keys
       end
     end
 
     context 'when shopId given' do
       let(:params) { valid_params.merge optional_params }
+
       it 'has the right required_fingerprint_keys' do
-        expect(subject).to eq %w(customerId shopId toolkitPassword secret command language orderNumber sourceOrderNumber autoDeposit orderDescription amount currency orderReference customerStatement)
+        expected_keys = %w(
+          customerId shopId toolkitPassword secret command language orderNumber sourceOrderNumber autoDeposit
+          orderDescription amount currency orderReference customerStatement
+        )
+        expect(subject.required_fingerprint_keys).to eq expected_keys
       end
     end
   end
@@ -124,6 +137,10 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
   describe '#fingerprinted_request_params' do
     let(:params) { valid_params.merge optional_params }
     subject { described_class.new(params: params).fingerprinted_request_params }
+    let(:request_fingerprint_order) do
+      'customerId,shopId,toolkitPassword,secret,command,language,orderNumber,sourceOrderNumber,' +
+        'autoDeposit,orderDescription,amount,currency,orderReference,customerStatement'
+    end
 
     it 'has the right fingerprinted_request_params' do
       expect(subject).to eq(
@@ -131,7 +148,7 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
             'command'                 => 'recurPayment',
             'language'                => 'en',
             'requestFingerprint'      => 'ce797ca41d044de2a41fd9cf40bf9dc6',
-            'requestFingerprintOrder' => 'customerId,shopId,toolkitPassword,secret,command,language,orderNumber,sourceOrderNumber,autoDeposit,orderDescription,amount,currency,orderReference,customerStatement',
+            'requestFingerprintOrder' => request_fingerprint_order,
             'customerId'              => 'D200001',
             'toolkitPassword'         => 'jcv45z',
             'shopId'                  => 'ABC',
@@ -158,7 +175,9 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
       end
 
       it 'has the right fingerprint' do
-        str = %w[D200001 jcv45z B8AKTPWBRMNBV455FG6M2DANE99WU2 recurPayment en sourceOrderNumber orderDescription 345 EUR] * ''
+        str = %w[
+          D200001 jcv45z B8AKTPWBRMNBV455FG6M2DANE99WU2 recurPayment en sourceOrderNumber orderDescription 345 EUR
+        ] * ''
         expect(subject.fingerprint).to eq Digest::MD5.hexdigest str
       end
     end
@@ -173,7 +192,9 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
       end
 
       it 'has the right fingerprint' do
-        str = %w[D200001 ABC jcv45z B8AKTPWBRMNBV455FG6M2DANE99WU2 recurPayment en sourceOrderNumber orderDescription 345 EUR] * ''
+        str = %w[
+          D200001 ABC jcv45z B8AKTPWBRMNBV455FG6M2DANE99WU2 recurPayment en sourceOrderNumber orderDescription 345 EUR
+        ] * ''
         expect(subject.fingerprint).to eq Digest::MD5.hexdigest str
       end
     end
