@@ -1,10 +1,11 @@
 require 'spec_helper'
 
 describe WirecardCheckoutPage::Gateway do
+  # TODO: Creds
   let(:credentials) do
     {
       customerId:       'foo',
-      secret:           'bar',
+      secret:           'B8AKTPWBRMNBV455FG6M2DANE99WU2',
       toolkit_url:      'https://toolkit.com',
       toolkit_password: '54321',
     }

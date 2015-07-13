@@ -4,9 +4,9 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
 
   let(:valid_params) do
     {
-      customerId:        '123',
-      toolkitPassword:   '321',
-      secret:            'geheim',
+      customerId:        'D200001',
+      toolkitPassword:   'jcv45z',
+      secret:            'B8AKTPWBRMNBV455FG6M2DANE99WU2',
       sourceOrderNumber: 'sourceOrderNumber',
       orderDescription:  'orderDescription',
       amount:            '345',
@@ -20,7 +20,7 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
       autoDeposit: 'Yes',
       customerStatement: 'customerStatement',
       orderNumber: 'orderNumber',
-      orderReference: 'orderReference'
+      orderReference: 'orderReference',
     }
   end
 
@@ -64,9 +64,9 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
             {
               'command'           => 'recurPayment',
               'language'          => 'en',
-              'customerId'        => '123',
-              'toolkitPassword'   => '321',
-              'secret'            => 'geheim',
+              'customerId'        => 'D200001',
+              'toolkitPassword'   => 'jcv45z',
+              'secret'            => 'B8AKTPWBRMNBV455FG6M2DANE99WU2',
               'sourceOrderNumber' => 'sourceOrderNumber',
               'orderDescription'  => 'orderDescription',
               'amount'            => '345',
@@ -84,9 +84,9 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
             {
               'command'           => 'recurPayment',
               'language'          => 'en',
-              'customerId'        => '123',
-              'toolkitPassword'   => '321',
-              'secret'            => 'geheim',
+              'customerId'        => 'D200001',
+              'toolkitPassword'   => 'jcv45z',
+              'secret'            => 'B8AKTPWBRMNBV455FG6M2DANE99WU2',
               'shopId'            => 'ABC',
               'sourceOrderNumber' => 'sourceOrderNumber',
               'orderDescription'  => 'orderDescription',
@@ -113,9 +113,9 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
             'language'                => 'en',
             'requestFingerprint'      => 'bf43bd220a5477fe18d1d35d39d36dd5',
             'requestFingerprintOrder' => 'customerId,shopId,toolkitPassword,secret,command,language,orderNumber,sourceOrderNumber,autoDeposit,orderDescription,amount,currency,orderReference,customerStatement',
-            'customerId'              => '123',
-            'toolkitPassword'         => '321',
-            'secret'                  => 'geheim',
+            'customerId'              => 'D200001',
+            'toolkitPassword'         => 'jcv45z',
+            'secret'                  => 'B8AKTPWBRMNBV455FG6M2DANE99WU2',
             'shopId'                  => 'ABC',
             'sourceOrderNumber'       => 'sourceOrderNumber',
             'orderDescription'        => 'orderDescription',

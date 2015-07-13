@@ -1,12 +1,11 @@
 require 'spec_helper'
 
 describe WirecardCheckoutPage::Toolkit::Request do
-
   let(:valid_params) do
     {
-      customerId:      '123',
-      toolkitPassword: '321',
-      secret:          'geheim'
+      customerId:      'D200001',
+      toolkitPassword: 'jcv45z',
+      secret:          'B8AKTPWBRMNBV455FG6M2DANE99WU2'
     }
   end
 
@@ -45,9 +44,9 @@ describe WirecardCheckoutPage::Toolkit::Request do
           {
             'command'         => 'test',
             'language'        => 'en',
-            'customerId'      => '123',
-            'toolkitPassword' => '321',
-            'secret'          => 'geheim'
+            'customerId'      => 'D200001',
+            'toolkitPassword' => 'jcv45z',
+            'secret'          => 'B8AKTPWBRMNBV455FG6M2DANE99WU2'
           }
         )
     end
@@ -59,9 +58,9 @@ describe WirecardCheckoutPage::Toolkit::Request do
             'language'                => 'en',
             'requestFingerprint'      => '28eef8ae3954ce6830584252588e07a8',
             'requestFingerprintOrder' => 'customerId,toolkitPassword,secret,command,language',
-            'customerId'              => '123',
-            'toolkitPassword'         => '321',
-            'secret'                  => 'geheim'
+            'customerId'              => 'D200001',
+            'toolkitPassword'         => 'jcv45z',
+            'secret'                  => 'B8AKTPWBRMNBV455FG6M2DANE99WU2'
           }
         )
     end
@@ -93,6 +92,7 @@ describe WirecardCheckoutPage::Toolkit::Request do
         expect(subject.missing_keys).to be_empty
       end
 
+      it 'wraps the response into a Toolkit::Response object'
 
     end
 
