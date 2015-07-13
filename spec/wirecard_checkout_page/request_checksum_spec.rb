@@ -1,20 +1,12 @@
 require 'spec_helper'
 
 describe WirecardCheckoutPage::RequestChecksum do
-  let :secret do
-    'SOMESECRET'
-  end
-
-  let :customer_id do
-    'SOMECUSTOMERID'
-  end
-
-  let :shop_id do
-    'someshopid'
-  end
+  let(:secret)      { 'SOMESECRET' }
+  let(:customer_id) { 'SOMECUSTOMERID' }
+  let(:shop_id)     { 'someshopid' }
 
   describe '.new' do
-    it "raises a WirecardCheckoutPage::ValueMissing if no values were passed" do
+    it 'raises a WirecardCheckoutPage::ValueMissing if no values were passed' do
       expect {
         WirecardCheckoutPage::RequestChecksum.new
       }.to raise_error WirecardCheckoutPage::ValueMissing
@@ -22,12 +14,10 @@ describe WirecardCheckoutPage::RequestChecksum do
   end
 
   describe '#request_parameters' do
-    it "raises a WirecardCheckoutPage::ValueMissing if not all required values were passed" do
+    it 'raises a WirecardCheckoutPage::ValueMissing if not all required values were passed' do
       expect {
         WirecardCheckoutPage::RequestChecksum.new(
-          secret:           'foo',
           fingerprint_keys: %w[foo bar],
-          foo:              'foo'
         ).request_parameters
       }.to raise_error WirecardCheckoutPage::ValueMissing
     end
@@ -37,8 +27,6 @@ describe WirecardCheckoutPage::RequestChecksum do
         WirecardCheckoutPage::RequestChecksum.new(
           secret:           'foo',
           fingerprint_keys: %w[foo bar],
-          foo:              'foo',
-          bar:              'bar',
         ).request_parameters
       }.not_to raise_error
     end
