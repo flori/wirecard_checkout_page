@@ -7,12 +7,15 @@ module WirecardCheckoutPage
 
       DEFAULT_URL = 'https://checkout.wirecard.com/page/toolkit.php'
 
-      attr_reader :url, :command, :params
+      attr_reader :url, :request_params
 
       def initialize(url: nil, command: nil, params: {})
-        @url         = url || DEFAULT_URL
-        @command     = command
-        @params      = stringify_keys params
+        @url     = url || DEFAULT_URL
+        @original_params = stringify_keys params
+        @request_params  = @original_params.dup
+        @request_params['command'] = command
+        @request_params['language'] = 'en'
+        @secret  = @request_params.delete 'secret'
       end
 
       def fingerprint_keys
@@ -31,30 +34,22 @@ module WirecardCheckoutPage
       end
 
       def missing_optional_keys
-        @missing_optional_keys ||= (optional_keys - request_params.keys)
+        @missing_optional_keys ||= (optional_keys - @original_params.keys)
       end
 
       def missing_keys
-        @missing_keys = (required_fingerprint_keys - request_params.keys)
+        @missing_keys = (required_fingerprint_keys - (@original_params.keys + %w[command language]))
       end
 
       def body
-        fingerprinted_request_params.tap { |h| h.delete('secret') }
+        fingerprinted_request_params
       end
 
       def call
         if missing_keys.any?
           raise WirecardCheckoutPage::ValueMissing, "values #{missing_keys * ', ' } are missing"
         end
-        byebug
         WirecardCheckoutPage::Toolkit::Response.new Typhoeus.post(url, body: body, headers: headers)
-      end
-
-      def request_params
-        @request_params ||= ({
-          'command'  => command,
-          'language' => 'en',
-        }.merge params)
       end
 
       def fingerprinted_request_params
@@ -90,7 +85,14 @@ module WirecardCheckoutPage
       # parameters are not manipulated by a 3rd party. Therefore it is essential that only you and
       # Wirecard know your secret!
       def fingerprint
-        values = required_fingerprint_keys.map { |key| request_params[key] } * ''
+
+        values = required_fingerprint_keys.map do |key|
+          if key == 'secret'
+            @secret
+          else
+            request_params[key]
+          end
+        end * ''
         Digest::MD5.hexdigest values
       end
 

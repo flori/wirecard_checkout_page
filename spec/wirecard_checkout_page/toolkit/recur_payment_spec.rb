@@ -66,7 +66,6 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
               'language'          => 'en',
               'customerId'        => 'D200001',
               'toolkitPassword'   => 'jcv45z',
-              'secret'            => 'B8AKTPWBRMNBV455FG6M2DANE99WU2',
               'sourceOrderNumber' => 'sourceOrderNumber',
               'orderDescription'  => 'orderDescription',
               'amount'            => '345',
@@ -86,7 +85,6 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
               'language'          => 'en',
               'customerId'        => 'D200001',
               'toolkitPassword'   => 'jcv45z',
-              'secret'            => 'B8AKTPWBRMNBV455FG6M2DANE99WU2',
               'shopId'            => 'ABC',
               'sourceOrderNumber' => 'sourceOrderNumber',
               'orderDescription'  => 'orderDescription',
@@ -111,11 +109,10 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
           {
             'command'                 => 'recurPayment',
             'language'                => 'en',
-            'requestFingerprint'      => 'bf43bd220a5477fe18d1d35d39d36dd5',
+            'requestFingerprint'      => 'ce797ca41d044de2a41fd9cf40bf9dc6',
             'requestFingerprintOrder' => 'customerId,shopId,toolkitPassword,secret,command,language,orderNumber,sourceOrderNumber,autoDeposit,orderDescription,amount,currency,orderReference,customerStatement',
             'customerId'              => 'D200001',
             'toolkitPassword'         => 'jcv45z',
-            'secret'                  => 'B8AKTPWBRMNBV455FG6M2DANE99WU2',
             'shopId'                  => 'ABC',
             'sourceOrderNumber'       => 'sourceOrderNumber',
             'orderDescription'        => 'orderDescription',
@@ -166,7 +163,7 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
       end
 
       it 'has the right fingerprint' do
-        str = %w[123 321 geheim recurPayment en sourceOrderNumber orderDescription 345 EUR] * ''
+        str = %w[D200001 jcv45z B8AKTPWBRMNBV455FG6M2DANE99WU2 recurPayment en sourceOrderNumber orderDescription 345 EUR] * ''
         expect(subject.fingerprint).to eq Digest::MD5.hexdigest str
       end
     end
@@ -181,7 +178,7 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
       end
 
       it 'has the right fingerprint' do
-        str = %w[123 ABC 321 geheim recurPayment en sourceOrderNumber orderDescription 345 EUR] * ''
+        str = %w[D200001 ABC jcv45z B8AKTPWBRMNBV455FG6M2DANE99WU2 recurPayment en sourceOrderNumber orderDescription 345 EUR] * ''
         expect(subject.fingerprint).to eq Digest::MD5.hexdigest str
       end
     end

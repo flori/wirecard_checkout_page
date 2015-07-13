@@ -46,7 +46,6 @@ describe WirecardCheckoutPage::Toolkit::Request do
             'language'        => 'en',
             'customerId'      => 'D200001',
             'toolkitPassword' => 'jcv45z',
-            'secret'          => 'B8AKTPWBRMNBV455FG6M2DANE99WU2'
           }
         )
     end
@@ -56,11 +55,10 @@ describe WirecardCheckoutPage::Toolkit::Request do
           {
             'command'                 => 'test',
             'language'                => 'en',
-            'requestFingerprint'      => '28eef8ae3954ce6830584252588e07a8',
+            'requestFingerprint'      => '406550dd4fa810409d14022264aeecfe',
             'requestFingerprintOrder' => 'customerId,toolkitPassword,secret,command,language',
             'customerId'              => 'D200001',
             'toolkitPassword'         => 'jcv45z',
-            'secret'                  => 'B8AKTPWBRMNBV455FG6M2DANE99WU2'
           }
         )
     end
@@ -107,7 +105,7 @@ describe WirecardCheckoutPage::Toolkit::Request do
       end
 
       it 'has the right fingerprint' do
-        str = '123321geheimtesten'
+        str = 'D200001' 'jcv45z' 'B8AKTPWBRMNBV455FG6M2DANE99WU2' 'test' 'en'
         expect(subject.fingerprint).to eq Digest::MD5.hexdigest str
       end
     end
@@ -121,7 +119,7 @@ describe WirecardCheckoutPage::Toolkit::Request do
       end
 
       it 'has the right fingerprint' do
-        str = '123ABC321geheimtesten'
+        str = 'D200001' 'ABC' 'jcv45z' 'B8AKTPWBRMNBV455FG6M2DANE99WU2' 'test' 'en'
         expect(subject.fingerprint).to eq Digest::MD5.hexdigest str
       end
     end
