@@ -38,11 +38,16 @@ module WirecardCheckoutPage
         @missing_keys = (required_fingerprint_keys - request_params.keys)
       end
 
+      def body
+        fingerprinted_request_params.tap { |h| h.delete('secret') }
+      end
+
       def call
         if missing_keys.any?
           raise WirecardCheckoutPage::ValueMissing, "values #{missing_keys * ', ' } are missing"
         end
-        WirecardCheckoutPage::Toolkit::Response.new Typhoeus.post(url, body: fingerprinted_request_params, headers: headers)
+        byebug
+        WirecardCheckoutPage::Toolkit::Response.new Typhoeus.post(url, body: body, headers: headers)
       end
 
       def request_params

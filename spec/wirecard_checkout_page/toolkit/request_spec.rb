@@ -67,7 +67,13 @@ describe WirecardCheckoutPage::Toolkit::Request do
     end
   end
 
+  describe '#body' do
+    subject { described_class.new(params: valid_params) }
 
+    it 'returns #fingerprinted_request_params without secret' do
+      expect(subject.body).not_to have_key('secret')
+    end
+  end
 
   describe '#call' do
     context 'with missing params' do
