@@ -151,13 +151,9 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
       end
 
       it 'makes the post request' do
-        allow(Typhoeus).to receive(:post)
-        expect(Typhoeus).to receive(:post)
         subject.call
       end
-
     end
-
   end
 
   describe '#fingerprint' do

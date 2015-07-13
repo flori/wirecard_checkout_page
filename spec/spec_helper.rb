@@ -21,10 +21,3 @@ begin
 rescue LoadError
 end
 require 'wirecard_checkout_page'
-
-RSpec.configure do |config|
-  config.before(:all) do
-    response = Typhoeus::Response.new(code: 302, body: "", headers: { 'Location' => 'payment-url' })
-    Typhoeus.stub(/init/).and_return(response)
-  end
-end

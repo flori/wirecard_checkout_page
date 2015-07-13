@@ -87,11 +87,6 @@ describe WirecardCheckoutPage::Toolkit::Request do
         expect(subject.missing_keys).to be_empty
       end
 
-      it 'makes the post request' do
-        allow(Typhoeus).to receive(:post)
-        expect(Typhoeus).to receive(:post)
-        subject.call
-      end
 
     end
 
