@@ -25,11 +25,9 @@ module WirecardCheckoutPage
     def initialize(values = {})
       @values = stringify_keys(values)
       @fingerprint_keys = @values.delete('fingerprint_keys') || FINGERPRINT_KEYS
-      @secret = @values.delete('secret') or
-        raise WirecardCheckoutPage::ValueMissing, 'value "secret" is missing'
+      @secret = @values.delete('secret') or raise WirecardCheckoutPage::ValueMissing, 'value "secret" is missing'
       @values = add_some_defaults @values
       @values.freeze
-      @secret = @secret
       reset_missing_keys
     end
 
@@ -61,11 +59,8 @@ module WirecardCheckoutPage
     end
 
     def requestFingerprintSeed(values)
-      seed = fingerprint_keys.map { |k|
-        values.fetch(k) do
-          add_missing_key k
-          next
-        end
+      fingerprint_keys.map { |k|
+        values[k]
       } * ''
     end
 

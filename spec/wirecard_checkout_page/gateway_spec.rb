@@ -1,7 +1,16 @@
 require 'spec_helper'
 
 describe WirecardCheckoutPage::Gateway do
-  let(:gateway) { WirecardCheckoutPage::Gateway.new(customerId: 'foo', secret: 'bar') }
+  let(:credentials) do
+    {
+      customerId:       'foo',
+      secret:           'bar',
+      toolkit_url:      'https://toolkit.com',
+      toolkit_password: '54321',
+    }
+  end
+  let(:gateway) { WirecardCheckoutPage::Gateway.new credentials }
+
 
   describe '#initialize' do
     it 'stores secret, customerId and init_url if given' do
@@ -42,6 +51,30 @@ describe WirecardCheckoutPage::Gateway do
       response = gateway.init(valid_params)
       expect(response).to be_a WirecardCheckoutPage::InitResponse
       expect(response.params).to eq(payment_url: 'payment-url')
+    end
+  end
+
+  describe '#recurring_process' do
+
+    let(:valid_params) do
+      {
+        sourceOrderNumber: 'sourceOrderNumber',
+        orderDescription:  'orderDescription',
+        amount:            '345',
+        currency:          'EUR'
+      }
+    end
+
+    it 'makes a Toolkit::RecurPayment call' do
+      expect(WirecardCheckoutPage::Toolkit::RecurPayment).to receive(:new).
+        with(url: 'https://toolkit.com', params: hash_including(valid_params)).and_call_original
+      gateway.recurring_process(valid_params)
+    end
+
+    it 'returns a InitResponse with the correct payment url' do
+      response = gateway.recurring_process(valid_params)
+      expect(response).to be_a WirecardCheckoutPage::Toolkit::Response
+      # expect(response.params).to eq(payment_url: 'payment-url')
     end
   end
 
