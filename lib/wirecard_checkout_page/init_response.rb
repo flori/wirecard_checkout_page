@@ -3,6 +3,9 @@
 
 module WirecardCheckoutPage
   class InitResponse
+
+    attr_reader :original_response
+
     def initialize(response)
       @original_response = response
     end

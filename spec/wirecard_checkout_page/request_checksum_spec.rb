@@ -60,8 +60,9 @@ describe WirecardCheckoutPage::RequestChecksum do
         serviceURL:       'http://example.com',
         confirmURL:       'http://example.com/confirm',
         orderReference:   '475ae67f248578b92a701',
+        transactionIdentifier: 'INITIAL',
       )
-      expect(checksum.__send__(:fingerprint)).to eq "10feda94a5db9f3e2fc7439d3c4c228b"
+      expect(checksum.__send__(:fingerprint)).to eq "b945e47003cc19bfc058ef3be34b42be"
       expect(checksum.request_parameters).to eq(
          "customerId"              => customer_id,
          "shopId"                  => shop_id,
@@ -77,7 +78,8 @@ describe WirecardCheckoutPage::RequestChecksum do
          "confirmURL"              => "http://example.com/confirm",
          "orderReference"          => "475ae67f248578b92a701",
          "requestFingerprintOrder" => checksum.fingerprint_keys * ',',
-         "requestFingerprint"      => "10feda94a5db9f3e2fc7439d3c4c228b"
+         "requestFingerprint"      => "b945e47003cc19bfc058ef3be34b42be",
+         "transactionIdentifier"   => "INITIAL"
       )
     end
   end

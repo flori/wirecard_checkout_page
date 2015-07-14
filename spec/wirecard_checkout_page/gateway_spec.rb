@@ -53,6 +53,34 @@ describe WirecardCheckoutPage::Gateway do
     end
   end
 
+  describe '#recurring_init' do
+    let(:valid_params) do
+      {
+        amount:           '100.00',
+        orderDescription: 'order',
+        serviceURL:       'https://foo.com/service',
+        successURL:       'https://foo.com/success',
+        cancelURL:        'https://foo.com/cancel',
+        failureURL:       'https://foo.com/failure',
+        confirmURL:       'https://foo.com/confirm',
+        orderReference:   '123',
+      }
+    end
+
+    it 'builds a checksum with the authorization params' do
+      expect(WirecardCheckoutPage::RequestChecksum).to receive(:new).
+        with(hash_including customerId: 'D200001', secret: 'B8AKTPWBRMNBV455FG6M2DANE99WU2').and_call_original
+      gateway.init(valid_params)
+    end
+
+    it 'returns a InitResponse with the correct payment url' do
+      response = gateway.recurring_init(valid_params)
+      expect(response).to be_a WirecardCheckoutPage::InitResponse
+      payment_url = response.params[:payment_url]
+      expect(payment_url).to match %r{https://checkout\.wirecard\.com/page/D200001_DESKTOP/select.php\?SID=.+}
+    end
+  end
+
   describe '#recurring_process' do
     let(:valid_params) do
       {
