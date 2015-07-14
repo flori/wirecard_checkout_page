@@ -14,17 +14,14 @@ module WirecardCheckoutPage
     end
 
     def init(params = {})
-      checksum = WirecardCheckoutPage::RequestChecksum.new(params.merge(authentication_params))
+      checksum = WirecardCheckoutPage::RequestChecksum.new(params.merge(authentication_params).merge(transactionIdentifier: 'SINGLE'))
       InitResponse.new Typhoeus.post(init_url, body: checksum.request_parameters)
     end
 
-    # def single(params = {})
-    #   SingleResponse.new SingleRequest.new(init_url, params).call
-    # end
-
     # to initialize a recurring payment
     def recurring_init(params = {})
-      InitialResponse.new InitialRequest.new(init_url, params).call
+      checksum = WirecardCheckoutPage::RequestChecksum.new(params.merge(authentication_params).merge(transactionIdentifier: 'INITIAL'))
+      InitResponse.new Typhoeus.post(init_url, body: checksum.request_parameters)
     end
 
     # to execute the recurring payments

@@ -19,6 +19,7 @@ module WirecardCheckoutPage
       failureURL
       confirmURL
       orderReference
+      transactionIdentifier
       requestFingerprintOrder
     ].freeze
 
