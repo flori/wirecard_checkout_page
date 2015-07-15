@@ -46,7 +46,6 @@ module WirecardCheckoutPage
     end
 
     def fingerprint
-      # Digest::MD5.hexdigest(fingerprint_string + (fingerprint_order + ['requestFingerprintOrder']).join(','))
       Digest::MD5.hexdigest fingerprint_string
     end
 
@@ -59,7 +58,6 @@ module WirecardCheckoutPage
     def request_params
       rp = {}
       attributes.keys.each do |param|
-        # next if attributes[param][:send] == false
         next if param == :secret
         val = send(param).to_s
         next if val == ''
@@ -71,7 +69,6 @@ module WirecardCheckoutPage
     def fingerprinted_request_params
       request_params.merge(
         'requestFingerprint'      => fingerprint,
-        # 'requestFingerprintOrder' => (fingerprint_order + ['requestFingerprintOrder']).join(',')
         'requestFingerprintOrder' => fingerprint_order.join(',')
       )
     end
@@ -83,5 +80,4 @@ module WirecardCheckoutPage
     end
 
   end
-
 end

@@ -1,6 +1,5 @@
 module WirecardCheckoutPage
   class InitRequest < Request
-    include WirecardCheckoutPage::Utils
 
     DEFAULT_URL = 'https://checkout.wirecard.com/page/init.php'
 
