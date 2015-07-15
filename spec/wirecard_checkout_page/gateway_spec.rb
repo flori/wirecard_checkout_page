@@ -12,16 +12,14 @@ describe WirecardCheckoutPage::Gateway do
 
   describe '#initialize' do
     it 'stores secret, customerId and init_url if given' do
-      gateway = WirecardCheckoutPage::Gateway.new(customer_id: 'foo', secret: 'bar', init_url: 'foobar')
+      gateway = WirecardCheckoutPage::Gateway.new(
+        customer_id: 'foo',
+        secret: 'bar',
+        toolkit_password: '123'
+      )
       expect(gateway.customer_id).to eq 'foo'
       expect(gateway.secret).to eq 'bar'
-      expect(gateway.init_url).to eq 'foobar'
-    end
-
-    it 'takes the default init url if none was given' do
-      gateway = WirecardCheckoutPage::Gateway.new
-      expect(gateway.init_url).to be_a String
-      expect(gateway.init_url).to eq WirecardCheckoutPage::Gateway::DEFAULT_INIT_URL
+      expect(gateway.toolkit_password).to eq '123'
     end
   end
 
@@ -29,23 +27,29 @@ describe WirecardCheckoutPage::Gateway do
     let(:valid_params) do
       {
         amount:           '100.00',
+        currency:         'EUR',
         orderDescription: 'order',
-        serviceURL:       'https://foo.com/service',
-        successURL:       'https://foo.com/success',
-        cancelURL:        'https://foo.com/cancel',
-        failureURL:       'https://foo.com/failure',
-        confirmURL:       'https://foo.com/confirm',
+        serviceUrl:       'https://foo.com/service',
+        successUrl:       'https://foo.com/success',
+        cancelUrl:        'https://foo.com/cancel',
+        failureUrl:       'https://foo.com/failure',
+        confirmUrl:       'https://foo.com/confirm',
         orderReference:   '123',
+        language:         'de',
+        paymentType:      'SELECT',
       }
     end
 
-    it 'builds a checksum with the authorization params' do
-      expect(WirecardCheckoutPage::RequestChecksum).to receive(:new).
-        with(hash_including customerId: 'D200001', secret: 'B8AKTPWBRMNBV455FG6M2DANE99WU2').and_call_original
+    it 'builds' do
+      expect(WirecardCheckoutPage::InitRequest).to receive(:new).and_call_original
       gateway.init(valid_params)
     end
 
     it 'returns a InitResponse with the correct payment url' do
+      gateway = WirecardCheckoutPage::Gateway.new(
+        customer_id: 'D200001',
+        secret: 'B8AKTPWBRMNBV455FG6M2DANE99WU2',
+      )
       response = gateway.init(valid_params)
       expect(response).to be_a WirecardCheckoutPage::InitResponse
       payment_url = response.params[:payment_url]
@@ -57,20 +61,22 @@ describe WirecardCheckoutPage::Gateway do
     let(:valid_params) do
       {
         amount:           '100.00',
+        currency:         'EUR',
+        paymentType:      'SELECT',
         orderDescription: 'order',
-        serviceURL:       'https://foo.com/service',
-        successURL:       'https://foo.com/success',
-        cancelURL:        'https://foo.com/cancel',
-        failureURL:       'https://foo.com/failure',
-        confirmURL:       'https://foo.com/confirm',
+        serviceUrl:       'https://foo.com/service',
+        successUrl:       'https://foo.com/success',
+        cancelUrl:        'https://foo.com/cancel',
+        failureUrl:       'https://foo.com/failure',
+        confirmUrl:       'https://foo.com/confirm',
         orderReference:   '123',
+        language:         'de',
       }
     end
 
     it 'builds a checksum with the authorization params' do
-      expect(WirecardCheckoutPage::RequestChecksum).to receive(:new).
-        with(hash_including customerId: 'D200001', secret: 'B8AKTPWBRMNBV455FG6M2DANE99WU2').and_call_original
-      gateway.init(valid_params)
+      expect(WirecardCheckoutPage::RecurringInitRequest).to receive(:new).and_call_original
+      gateway.recurring_init(valid_params)
     end
 
     it 'returns a InitResponse with the correct payment url' do
