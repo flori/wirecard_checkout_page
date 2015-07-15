@@ -20,6 +20,10 @@ module WirecardCheckoutPage
         param('errorCode').to_s
       end
 
+      def params
+        { payment_url: original_response.headers['Location'] }
+      end
+
       private
 
       # NOTE: May be useful for debugging? Expose later?
