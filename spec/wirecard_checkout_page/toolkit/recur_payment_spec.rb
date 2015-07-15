@@ -7,7 +7,7 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
       customerId:        'D200001',
       toolkitPassword:   'jcv45z',
       secret:            'B8AKTPWBRMNBV455FG6M2DANE99WU2',
-      sourceOrderNumber: 'sourceOrderNumber',
+      sourceOrderNumber: '987654',
       orderDescription:  'orderDescription',
       amount:            '345',
       currency:          'EUR'
@@ -16,21 +16,16 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
 
   let(:optional_params) do
     {
-      shopId: 'ABC',
-      autoDeposit: 'Yes',
+      shopId:            'ABC',
+      autoDeposit:       'Yes',
       customerStatement: 'customerStatement',
-      orderNumber: 'orderNumber',
-      orderReference: 'orderReference',
+      orderNumber:       '54321',
+      orderReference:    'orderReference',
     }
   end
 
   describe '#call' do
     context 'with missing params' do
-      it 'has missing_keys' do
-        expected_keys = %w(customerId toolkitPassword sourceOrderNumber orderDescription amount currency)
-        expect(subject.missing_keys).to eq expected_keys
-      end
-
       it 'raises ValueMissing' do
         expect { subject.call } .to raise_error WirecardCheckoutPage::ValueMissing
       end
@@ -39,26 +34,11 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
     context 'with valid params' do
       subject { described_class.new params: valid_params }
 
-      it 'has no missing_keys' do
-        expect(subject.missing_keys).to be_empty
+      it 'makes the call to Wirecard' do
+        response = subject.call
+        expect(response).to be_a WirecardCheckoutPage::Toolkit::Response
+        expect(response).to be_success
       end
-    end
-  end
-
-
-  describe '#fingerprint_keys' do
-    it 'has the right fingerprint_keys' do
-      expected_keys = %w(
-        customerId shopId toolkitPassword secret command language orderNumber sourceOrderNumber
-        autoDeposit orderDescription amount currency orderReference customerStatement
-      )
-      expect(subject.fingerprint_keys).to eq expected_keys
-    end
-  end
-
-  describe '#optional_keys' do
-    it 'has the right optional_keys' do
-      expect(subject.optional_keys).to eq %w(shopId autoDeposit customerStatement orderNumber orderReference)
     end
   end
 
@@ -74,7 +54,7 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
               'language'          => 'en',
               'customerId'        => 'D200001',
               'toolkitPassword'   => 'jcv45z',
-              'sourceOrderNumber' => 'sourceOrderNumber',
+              'sourceOrderNumber' => '987654',
               'orderDescription'  => 'orderDescription',
               'amount'            => '345',
               'currency'          => 'EUR'
@@ -94,13 +74,13 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
               'customerId'        => 'D200001',
               'toolkitPassword'   => 'jcv45z',
               'shopId'            => 'ABC',
-              'sourceOrderNumber' => 'sourceOrderNumber',
+              'sourceOrderNumber' => '987654',
               'orderDescription'  => 'orderDescription',
               'amount'            => '345',
               'currency'          => 'EUR',
               'autoDeposit'       => 'Yes',
               'customerStatement' => 'customerStatement',
-              'orderNumber'       => 'orderNumber',
+              'orderNumber'       => '54321',
               'orderReference'    => 'orderReference'
             }
           )
@@ -110,7 +90,7 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
 
   describe '#body' do
     let(:params) { valid_params.merge optional_params }
-    subject { described_class.new(params: params).body }
+    subject      { described_class.new(params: params).body }
     let(:request_fingerprint_order) do
       'customerId,shopId,toolkitPassword,secret,command,language,orderNumber,sourceOrderNumber,' +
         'autoDeposit,orderDescription,amount,currency,orderReference,customerStatement'
@@ -121,18 +101,18 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
           {
             'command'                 => 'recurPayment',
             'language'                => 'en',
-            'requestFingerprint'      => 'ce797ca41d044de2a41fd9cf40bf9dc6',
+            'requestFingerprint'      => '9a95827c960afabc09cb786872f78ec2',
             'requestFingerprintOrder' => request_fingerprint_order,
             'customerId'              => 'D200001',
             'toolkitPassword'         => 'jcv45z',
             'shopId'                  => 'ABC',
-            'sourceOrderNumber'       => 'sourceOrderNumber',
+            'sourceOrderNumber'       => '987654',
             'orderDescription'        => 'orderDescription',
             'amount'                  => '345',
             'currency'                => 'EUR',
             'autoDeposit'             => 'Yes',
             'customerStatement'       => 'customerStatement',
-            'orderNumber'             => 'orderNumber',
+            'orderNumber'             => '54321',
             'orderReference'          => 'orderReference'
           }
         )
