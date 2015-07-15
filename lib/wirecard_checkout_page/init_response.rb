@@ -4,10 +4,15 @@
 module WirecardCheckoutPage
   class InitResponse
 
-    attr_reader :original_response
+    attr_reader :original_response, :body
 
-    def initialize(response)
-      @original_response = response
+    def self.from_typhoeus_response(response)
+      new(response.body, original_response: response)
+    end
+
+    def initialize(body, original_response: nil)
+      @body = body
+      @original_response = original_response
     end
 
     def params

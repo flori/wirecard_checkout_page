@@ -2,22 +2,31 @@ module WirecardCheckoutPage
   module Toolkit
     class RecurPayment < Request
 
-      def initialize(url: nil, params: {})
-        super url: url, command: 'recurPayment', params: params
+      def initialize(params: {})
+        super params: params
+        self.command = 'recurPayment'
       end
 
-      def fingerprint_keys
-        super + %w[
-          orderNumber
-          sourceOrderNumber
-          autoDeposit
-          orderDescription
-          amount
-          currency
-          orderReference
-          customerStatement
-        ]
-      end
+      # Which request parameters are required for all operations?
+      # To start an operation you have to set all required parameters to their corresponding values.
+      # If one or more of these required parameters are missing you will get an error message.
+
+      # Parameter          Data type                               Short description
+      # customerId         Alphanumeric with a fixed length of 7.  Unique ID of merchant.
+      # shopId             Alphanumeric with a variable length of 16. Unique ID of your online shop if several
+      # toolkitPassword    Alphanumeric with special characters.   Your password for Toolkit light operations.
+      # command            Enumeration                             Operation to be executed.
+      # language           Alphabetic with a fixed length of 2.    Language for returned texts and error messages,
+      #                                                            currently only “en” is supported; we are able
+      #                                                            to integrate other languages upon request.
+      # requestFingerprint Alphanumeric with a fixed length of 32. Computed fingerprint of the parameter
+      #                                                            values and the secret.
+      param :customerId,      required: true
+      param :shopId
+      param :toolkitPassword, required: true
+      param :secret,          required: true
+      param :command,         required: true
+      param :language,        required: true
 
       # Additional required request parameters
       #
@@ -29,10 +38,6 @@ module WirecardCheckoutPage
       #                   of up to 255 characters.
       # sourceOrderNumber Numeric with a variable length of     Original order number used for new payment.
       #                   up to 9 digits.
-      # def required_attributes
-      #   #super + %w[amount currency orderDescription sourceOrderNumber]
-      #   fingerprint_keys - optional_keys
-      # end
 
       # Additional optional request parameters
       #
@@ -47,9 +52,15 @@ module WirecardCheckoutPage
       #                   of up to 9 digits.
       # orderReference    Alphanumeric with a variable length   Unique order reference ID sent from
       #                   of up to 128 characters.              merchant to financial institution.
-      def optional_keys
-        super + %w[autoDeposit customerStatement orderNumber orderReference]
-      end
+      param :orderNumber
+      param :sourceOrderNumber, required: true
+      param :autoDeposit
+      param :orderDescription,  required: true
+      param :amount,            required: true
+      param :currency,          required: true
+      param :orderReference
+      param :customerStatement
+
 
     end
   end
