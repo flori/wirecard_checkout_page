@@ -1,3 +1,5 @@
+require 'cgi'
+
 module WirecardCheckoutPage
   module Toolkit
     class Response
