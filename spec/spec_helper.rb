@@ -1,3 +1,5 @@
+require 'typhoeus'
+
 if ENV['START_SIMPLECOV'].to_i == 1
   require 'simplecov'
   SimpleCov.start do
@@ -13,6 +15,12 @@ if ENV.key?('CODECLIMATE_REPO_TOKEN')
   else
     CodeClimate::TestReporter.start
   end
+end
+
+RSpec.configure do |config|
+  config.before :each do
+    Typhoeus::Expectation.clear
+   end
 end
 
 require 'rspec'

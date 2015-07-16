@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 class ToolkitTestRequest < WirecardCheckoutPage::Toolkit::Request
-
   param :customerId, required: true
   param :shopId
   param :param1,     required: true
@@ -57,6 +56,9 @@ describe WirecardCheckoutPage::Toolkit::Request do
 
     context 'with valid params' do
       subject { ToolkitTestRequest.new params: valid_params }
+
+      let(:stubbed_response) { Typhoeus::Response.new(code: 200, body: '') }
+      before { Typhoeus.stub('https://checkout.wirecard.com/page/toolkit.php').and_return(stubbed_response) }
 
       it 'wraps the response in a toolkit a response object' do
         expect(subject.call).to be_a WirecardCheckoutPage::Toolkit::Response

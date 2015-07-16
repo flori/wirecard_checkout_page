@@ -32,7 +32,6 @@ describe WirecardCheckoutPage::InitRequest do
     end
 
     context 'with recurring init' do
-
       it 'has the right fingerprint' do
         request = described_class.new params: valid_params.merge(transactionIdentifier: 'INITIAL')
         expected_request_fingerprint_order = 'secret,customerId,language,paymentType,amount,currency,orderDescription,successUrl,cancelUrl,failureUrl,serviceUrl,confirmUrl,orderReference,transactionIdentifier,requestFingerprintOrder'
@@ -44,13 +43,20 @@ describe WirecardCheckoutPage::InitRequest do
     end
   end
 
-  it 'makes a successful request' do
-    request = described_class.new params: valid_params
+  context 'performing a request' do
+    let(:stubbed_response) do
+      Typhoeus::Response.new(code: 302, body: '', headers: { 'Location' => 'https://example.com/single_init' })
+    end
+    before { Typhoeus.stub('https://checkout.wirecard.com/page/init.php').and_return(stubbed_response) }
 
-    response = request.call
-    expect(response).to be_a WirecardCheckoutPage::InitResponse
-    expect(response).to be_success
-    payment_url = response.params[:payment_url]
-    expect(payment_url).to match %r{https://checkout\.wirecard\.com/page/D200001_DESKTOP/select.php\?SID=.+}
+    it 'makes a successful request' do
+      request = described_class.new params: valid_params
+
+      response = request.call
+      expect(response).to be_a WirecardCheckoutPage::InitResponse
+      expect(response).to be_success
+      payment_url = response.params[:payment_url]
+      expect(payment_url).to match 'https://example.com/single_init'
+    end
   end
 end

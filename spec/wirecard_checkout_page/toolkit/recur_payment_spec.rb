@@ -34,6 +34,9 @@ describe WirecardCheckoutPage::Toolkit::RecurPayment do
     context 'with valid params' do
       subject { described_class.new params: valid_params }
 
+      let(:stubbed_response) { Typhoeus::Response.new(code: 200, body: 'status=0&orderNumber=1') }
+      before { Typhoeus.stub('https://checkout.wirecard.com/page/toolkit.php').and_return(stubbed_response) }
+
       it 'makes the call to Wirecard' do
         response = subject.call
         expect(response).to be_a WirecardCheckoutPage::Toolkit::Response

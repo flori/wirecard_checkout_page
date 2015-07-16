@@ -24,6 +24,11 @@ describe WirecardCheckoutPage::Gateway do
   end
 
   describe '#init' do
+    let(:stubbed_response) do
+      Typhoeus::Response.new(code: 302, body: '', headers: { 'Location' => 'https://example.com/single_init' })
+    end
+    before { Typhoeus.stub('https://checkout.wirecard.com/page/init.php').and_return(stubbed_response) }
+
     let(:valid_params) do
       {
         amount:           '100.00',
@@ -53,11 +58,16 @@ describe WirecardCheckoutPage::Gateway do
       response = gateway.init(valid_params)
       expect(response).to be_a WirecardCheckoutPage::InitResponse
       payment_url = response.params[:payment_url]
-      expect(payment_url).to match %r{https://checkout\.wirecard\.com/page/D200001_DESKTOP/select.php\?SID=.+}
+      expect(payment_url).to match 'https://example.com/single_init'
     end
   end
 
   describe '#recurring_init' do
+    let(:stubbed_response) do
+      Typhoeus::Response.new(code: 302, body: '', headers: { 'Location' => 'https://example.com/recurring_init' })
+    end
+    before { Typhoeus.stub('https://checkout.wirecard.com/page/init.php').and_return(stubbed_response) }
+
     let(:valid_params) do
       {
         amount:           '100.00',
@@ -83,11 +93,14 @@ describe WirecardCheckoutPage::Gateway do
       response = gateway.recurring_init(valid_params)
       expect(response).to be_a WirecardCheckoutPage::InitResponse
       payment_url = response.params[:payment_url]
-      expect(payment_url).to match %r{https://checkout\.wirecard\.com/page/D200001_DESKTOP/select.php\?SID=.+}
+      expect(payment_url).to match 'https://example.com/recurring_init'
     end
   end
 
   describe '#recurring_process' do
+    let(:stubbed_response) { Typhoeus::Response.new(code: 302, body: 'status=0&orderNumber=1') }
+    before { Typhoeus.stub('https://checkout.wirecard.com/page/toolkit.php').and_return(stubbed_response) }
+
     let(:valid_params) do
       {
         sourceOrderNumber: '123',
