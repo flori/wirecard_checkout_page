@@ -51,6 +51,7 @@ module WirecardCheckoutPage
     param :customerStatement
     param :orderReference
     param :transactionIdentifier
+    param :shopId
 
     def call
       raise WirecardCheckoutPage::ValueMissing, errors.join(', ') unless valid?

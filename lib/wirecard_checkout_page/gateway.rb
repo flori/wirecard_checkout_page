@@ -1,12 +1,13 @@
 module WirecardCheckoutPage
   class Gateway
 
-    attr_accessor :customer_id, :secret, :toolkit_password
+    attr_accessor :customer_id, :secret, :toolkit_password, :shop_id
 
-    def initialize(customer_id: nil, secret: nil, toolkit_password: nil)
+    def initialize(customer_id: nil, secret: nil, toolkit_password: nil, shop_id: nil)
       @customer_id      = customer_id
       @secret           = secret
       @toolkit_password = toolkit_password
+      @shop_id          = shop_id
     end
 
     def init(params = {})
@@ -25,8 +26,12 @@ module WirecardCheckoutPage
       CheckedResponse.new params.merge(authentication_params)
     end
 
+    private
+
     def authentication_params
-      { secret: secret, customerId: customer_id }
+      params = { secret: secret, customerId: customer_id }
+      params[:shopId] = shop_id if shop_id
+      params
     end
 
     def toolkit_authentication_params
