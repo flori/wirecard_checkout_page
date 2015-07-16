@@ -41,3 +41,7 @@ puts response.params
 [![Code Climate](https://codeclimate.com/github/flori/wirecard_checkout_page/badges/gpa.svg)](https://codeclimate.com/github/flori/wirecard_checkout_page)
 
 [![Test Coverage](https://codeclimate.com/github/flori/wirecard_checkout_page/badges/coverage.svg)](https://codeclimate.com/github/flori/wirecard_checkout_page)
+
+
+## TODOS
+[] Document the toolkit features
