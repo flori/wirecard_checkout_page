@@ -75,7 +75,7 @@ describe WirecardCheckoutPage::Gateway do
     end
 
     it 'builds a checksum with the authorization params' do
-      expect(WirecardCheckoutPage::RecurringInitRequest).to receive(:new).and_call_original
+      expect(WirecardCheckoutPage::InitRequest).to receive(:new).and_call_original
       gateway.recurring_init(valid_params)
     end
 

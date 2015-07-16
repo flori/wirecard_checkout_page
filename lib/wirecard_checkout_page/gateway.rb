@@ -11,15 +11,18 @@ module WirecardCheckoutPage
     end
 
     def init(params = {})
-      InitRequest.new(params: params.merge(authentication_params)).call
+      params = params.merge(authentication_params).merge( transactionIdentifier: 'SINGLE' )
+      InitRequest.new(params: params).call
     end
 
     def recurring_init(params = {})
-      RecurringInitRequest.new(params: params.merge(authentication_params)).call
+      params = params.merge(authentication_params).merge( transactionIdentifier: 'INITIAL' )
+      InitRequest.new(params: params).call
     end
 
     def recurring_process(params = {})
-      Toolkit::RecurPayment.new(params: params.merge(toolkit_authentication_params)).call
+      params = params.merge(toolkit_authentication_params)
+      Toolkit::RecurPayment.new(params: params).call
     end
 
     def check_response(params = {})

@@ -5,7 +5,7 @@ module WirecardCheckoutPage
 
     def initialize(url: nil, params: {})
       super url: url || DEFAULT_URL, params: params
-      self.transactionIdentifier = 'SINGLE'
+      self.transactionIdentifier ||= 'SINGLE'
     end
 
     # Parameter        Within fingerprint Data type	Short description
