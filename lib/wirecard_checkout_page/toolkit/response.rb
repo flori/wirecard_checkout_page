@@ -22,13 +22,16 @@ module WirecardCheckoutPage
         param('errorCode').to_s
       end
 
+      def order_number
+        param('orderNumber').to_i
+      end
+
       def params
         { payment_url: original_response.headers['Location'] }
       end
 
       private
 
-      # NOTE: May be useful for debugging? Expose later?
       def status
         param 'status'
       end

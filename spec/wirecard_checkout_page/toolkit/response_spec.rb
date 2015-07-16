@@ -23,4 +23,14 @@ describe WirecardCheckoutPage::Toolkit::Response do
       expect(failure_response.error_code).to eq '18159'
     end
   end
+
+  describe '#order_number' do
+    it 'returns the correct id for a success response' do
+      expect(success_response.order_number).to eq 4180566
+    end
+
+    it 'returns nil for a failure response' do
+      expect(failure_response.order_number).to eq 0
+    end
+  end
 end
