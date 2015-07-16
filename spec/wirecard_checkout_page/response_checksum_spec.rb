@@ -59,4 +59,25 @@ describe WirecardCheckoutPage::ResponseChecksum do
       end
     end
   end
+
+  describe '#initialize' do
+    context 'a probably crafted request without the secret key in the responseFingerprintOrder' do
+      let(:fingerprint_order) { 'amount,currency,responseFingerprintOrder' }
+      let(:params) do
+        {
+          'amount'                   => '10.00',
+          'currency'                 => 'EUR',
+          'responseFingerprint'      => Digest::MD5.hexdigest('10.00''EUR'"#{fingerprint_order}"),
+          'responseFingerprintOrder' => fingerprint_order,
+        }
+      end
+
+      it 'is not valid' do
+        byebug
+        expect {
+          described_class.new(params)
+        }.to raise WirecardCheckoutPage::InvalidResponseFingerPrintOrder
+      end
+    end
+  end
 end
