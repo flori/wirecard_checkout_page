@@ -10,7 +10,7 @@ GemHadar do
   summary     'Library for using Wirecard Checkout Page'
   description 'This library allows you to use the Wirecard Checkout Page service.'
   test_dir    'tests'
-  ignore      '.*.sw[pon]', 'pkg', 'Gemfile.lock', 'coverage', '.rvmrc', '.AppleDouble', '.DS_Store'
+  ignore      '.*.sw[pon]', 'pkg', 'Gemfile.lock', 'coverage', '.rvmrc', '.AppleDouble', '.DS_Store', '.envrc'
   readme      'README.md'
   title       "#{name.camelize} -- Wirecard Checkout Page implementation"
   licenses    << 'Apache-2.0'
