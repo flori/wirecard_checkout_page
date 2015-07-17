@@ -73,7 +73,6 @@ describe WirecardCheckoutPage::ResponseChecksum do
       end
 
       it 'is not valid' do
-        byebug
         expect {
           described_class.new(params)
         }.to raise WirecardCheckoutPage::InvalidResponseFingerPrintOrder

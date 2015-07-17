@@ -7,7 +7,6 @@ module WirecardCheckoutPage
     attr_reader :params
 
     def initialize(params)
-      byebug
       @params = WirecardCheckoutPage::Utils.stringify_keys(params)
       if response_fingerprint_order_parts.include? 'secret'
         raise InvalidResponseFingerPrintOrder, 'Missing :secret as a part of the responseFingerprintOrder'
