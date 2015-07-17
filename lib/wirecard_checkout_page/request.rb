@@ -1,6 +1,5 @@
 module WirecardCheckoutPage
   class Request
-
     def self.param(name, options = {})
       name = name.to_sym
       params_order << name
@@ -16,12 +15,16 @@ module WirecardCheckoutPage
       @params_order ||= []
     end
 
-    attr_reader :url, :params, :errors
-
     def initialize(url: nil, params: {})
       @url = url
       params.each { |param, value| send "#{param}=", value }
     end
+
+    attr_reader :url
+
+    attr_reader :params
+
+    attr_reader :errors
 
     def valid?
       @errors = []
@@ -78,6 +81,5 @@ module WirecardCheckoutPage
     def attributes
       self.class.params
     end
-
   end
 end

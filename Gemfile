@@ -7,5 +7,3 @@ gemspec
 gem "codeclimate-test-reporter", group: :test, require: nil
 
 gem 'byebug', group: :test, platforms: :mri
-
-gem 'gem_hadar', group: :development

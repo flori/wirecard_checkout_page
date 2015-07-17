@@ -1,17 +1,17 @@
 # encoding: utf-8
-require 'wirecard_checkout_page/utils'
-require 'wirecard_checkout_page/errors'
 
 module WirecardCheckoutPage
   class ResponseChecksum
-    attr_reader :params
+    include WirecardCheckoutPage::Utils
 
     def initialize(params)
-      @params = WirecardCheckoutPage::Utils.stringify_keys(params)
+      @params = stringify_keys(params)
       unless response_fingerprint_order_parts.include? 'secret'
         raise InvalidResponseFingerPrintOrder, 'Missing :secret as a part of the responseFingerprintOrder'
       end
     end
+
+    attr_reader :params
 
     def valid?
       params['responseFingerprint'] == computed_fingerprint
@@ -30,6 +30,5 @@ module WirecardCheckoutPage
     def computed_fingerprint
       Digest::MD5.hexdigest fingerprint_string
     end
-
   end
 end

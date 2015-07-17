@@ -1,5 +1,4 @@
 require 'digest/md5'
-require 'uri'
 require 'typhoeus'
 require 'wirecard_checkout_page/errors'
 require 'wirecard_checkout_page/gateway'
