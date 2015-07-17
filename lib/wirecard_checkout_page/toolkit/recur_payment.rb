@@ -3,7 +3,7 @@ module WirecardCheckoutPage
     class RecurPayment < Request
 
       def initialize(params: {})
-        super params: params
+        super
         self.command = 'recurPayment'
       end
 
@@ -60,7 +60,6 @@ module WirecardCheckoutPage
       param :currency,          required: true
       param :orderReference
       param :customerStatement
-
 
     end
   end

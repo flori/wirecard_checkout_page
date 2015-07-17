@@ -50,7 +50,6 @@ module WirecardCheckoutPage
           'Connection'   => 'close',
         }
       end
-
     end
   end
 end
