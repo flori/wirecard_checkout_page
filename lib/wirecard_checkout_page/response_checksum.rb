@@ -8,7 +8,7 @@ module WirecardCheckoutPage
 
     def initialize(params)
       @params = WirecardCheckoutPage::Utils.stringify_keys(params)
-      if response_fingerprint_order_parts.include? 'secret'
+      unless response_fingerprint_order_parts.include? 'secret'
         raise InvalidResponseFingerPrintOrder, 'Missing :secret as a part of the responseFingerprintOrder'
       end
     end
@@ -20,7 +20,7 @@ module WirecardCheckoutPage
     private
 
     def response_fingerprint_order_parts
-      params['responseFingerprintOrder'].split(',')
+      params['responseFingerprintOrder'].to_s.split(',')
     end
 
     def fingerprint_string

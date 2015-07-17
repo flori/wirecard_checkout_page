@@ -72,10 +72,10 @@ describe WirecardCheckoutPage::ResponseChecksum do
         }
       end
 
-      it 'is not valid' do
+      it 'raises InvalidResponseFingerprintOrder' do
         expect {
           described_class.new(params)
-        }.to raise WirecardCheckoutPage::InvalidResponseFingerPrintOrder
+        }.to raise_error WirecardCheckoutPage::InvalidResponseFingerPrintOrder
       end
     end
   end

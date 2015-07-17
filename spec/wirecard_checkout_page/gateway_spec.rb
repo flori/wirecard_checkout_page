@@ -117,10 +117,4 @@ describe WirecardCheckoutPage::Gateway do
     end
   end
 
-  describe '#check_response' do
-    it 'returns true if the response was valid' do
-      allow_any_instance_of(WirecardCheckoutPage::ResponseChecksum).to receive(:valid?).and_return(true)
-      expect(gateway.check_response).to be_valid
-    end
-  end
 end
