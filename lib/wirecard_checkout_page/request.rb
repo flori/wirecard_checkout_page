@@ -29,9 +29,9 @@ module WirecardCheckoutPage
     def valid?
       @errors = []
       attributes.each do |param, options|
-        next unless options[:required] == true
-        val = send param
-        @errors << "#{param} is required" if val.nil? || val == ''
+        next unless options[:required]
+        value = send param
+        @errors << "#{param} is required" if value.to_s.empty?
       end
       @errors.empty?
     end
@@ -54,7 +54,7 @@ module WirecardCheckoutPage
 
     def fingerprint_order
       self.class.params_order.select do |param|
-        attributes[param][:required] || send(param).to_s != ''
+        attributes[param][:required] || !send(param).to_s.empty?
       end
     end
 
