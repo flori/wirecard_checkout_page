@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["Florian Frank"]
-  s.date = "2015-07-17"
+  s.date = "2015-08-17"
   s.description = "This library allows you to use the Wirecard Checkout Page service."
   s.email = "flori@ping.de"
   s.extra_rdoc_files = ["README.md", "lib/wirecard_checkout_page.rb", "lib/wirecard_checkout_page/checked_response.rb", "lib/wirecard_checkout_page/errors.rb", "lib/wirecard_checkout_page/fingerprint.rb", "lib/wirecard_checkout_page/gateway.rb", "lib/wirecard_checkout_page/init_request.rb", "lib/wirecard_checkout_page/init_response.rb", "lib/wirecard_checkout_page/request.rb", "lib/wirecard_checkout_page/response_checksum.rb", "lib/wirecard_checkout_page/toolkit/recur_payment.rb", "lib/wirecard_checkout_page/toolkit/request.rb", "lib/wirecard_checkout_page/toolkit/response.rb", "lib/wirecard_checkout_page/utils.rb", "lib/wirecard_checkout_page/version.rb", "lib/wirecard_checkout_page/wirecard_checkout_page_error.rb"]

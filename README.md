@@ -5,26 +5,25 @@
 Gateway setup
 ```ruby
 gateway = WirecardCheckoutPage::Gateway.new(
-  secret:     YOUR_SECRET,
-  customerId: YOUR_ID
+  customer_id: 'D200001',
+  secret:      'B8AKTPWBRMNBV455FG6M2DANE99WU2',
 )
 ```
 
 Init a new payment process
 ```ruby
 params = {
-  fingerprint_keys: ["secret", "customerId", "amount", ..], # Put in all your fingerprint keys
-  currency:         'EUR',
-  language:         'en',
   amount:           '100.00',
+  cancelUrl:        'https://foo.com/cancel',
+  confirmUrl:       'https://foo.com/confirm',
+  currency:         'EUR',
+  failureUrl:       'https://foo.com/failure',
+  language:         'en',
+  orderDescription: 'order',
+  orderReference:   '123',
   paymentType:      'SELECT',
-  orderDescription: 'Your order no 1',
-  successURL:       'http://example.com/success',
-  cancelURL:        'http://example.com/cancel',
-  failureURL:       'http://example.com/failure',
-  serviceURL:       'http://example.com/service',
-  confirmURL:       'http://example.com/confirm',
-  orderReference:   YOUR_UNIQUE_ORDER_REFERENCE,
+  serviceUrl:       'https://foo.com/service',
+  successUrl:       'https://foo.com/success',
 }
 
 response = gateway.init(params)
