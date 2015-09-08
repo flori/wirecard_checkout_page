@@ -33,4 +33,10 @@ describe WirecardCheckoutPage::Toolkit::Response do
       expect(failure_response.order_number).to eq 0
     end
   end
+
+  describe '#to_s' do
+    it 'returns the response body' do
+      expect(success_response.to_s).to eq success_response.body
+    end
+  end
 end

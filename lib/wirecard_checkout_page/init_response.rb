@@ -19,7 +19,7 @@ module WirecardCheckoutPage
 
     def params
       {
-        payment_url: @original_response.headers['Location']
+        payment_url: original_response.headers['Location']
       }
     end
 
@@ -28,7 +28,11 @@ module WirecardCheckoutPage
     end
 
     def message
-      @original_response.body
+      body
+    end
+
+    def to_s
+      body
     end
   end
 end

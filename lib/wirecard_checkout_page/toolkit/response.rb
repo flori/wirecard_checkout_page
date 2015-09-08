@@ -3,6 +3,8 @@ require 'cgi'
 module WirecardCheckoutPage
   module Toolkit
     class Response
+      attr_reader :original_response, :body
+
       def self.from_typhoeus_response(response)
         new(response.body, original_response: response)
       end
@@ -11,10 +13,6 @@ module WirecardCheckoutPage
         @body = body
         @original_response = original_response
       end
-
-      attr_reader :original_response
-
-      attr_reader :body
 
       def success?
         status == '0'
@@ -30,6 +28,10 @@ module WirecardCheckoutPage
 
       def params
         { payment_url: original_response.headers['Location'] }
+      end
+
+      def to_s
+        body
       end
 
       private
@@ -48,3 +50,4 @@ module WirecardCheckoutPage
     end
   end
 end
+
